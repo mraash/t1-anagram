@@ -2,15 +2,8 @@
 
 declare(strict_types=1);
 
-require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
-use Src\Anagram\Sentence;
-
-// Main function
-function makeAnagram(string $input): string
-{
-    $sentence = new Sentence($input);
-    return $sentence->getReversed();
-}
+require_once __DIR__ . '/functions/makeAnagram.php';
 
 echo makeAnagram('A1bcd efg!h');
