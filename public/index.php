@@ -6,4 +6,4 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use Src\Anagram\Sentence;
 
-echo (new Sentence($input))->getReversed();
+echo (new Sentence('A1bcd efg!h'))->getReversed();
