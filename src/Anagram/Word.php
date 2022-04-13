@@ -9,14 +9,13 @@ namespace Src\Anagram;
  */
 class Word
 {
-    private string $word;
+    /** @var string[] */
     private array $chars;
     private int $length;
 
     public function __construct(string $word)
     {
-        $this->word   = $word;
-        $this->chars  = str_split($this->word);
+        $this->chars  = str_split($word);
         $this->length = strlen($word);
     }
 
