@@ -12,7 +12,7 @@ class WordTest extends TestCase
     /**
      * @dataProvider provideTypicalData
      */
-    public function test_typical_behavior(string $expected, string $input): void
+    public function testTypicalBehavior(string $expected, string $input): void
     {
         self::assertWordMatches($expected, $input);
     }
@@ -25,19 +25,19 @@ class WordTest extends TestCase
         ];
     }
 
-    public function test_non_reversible_characters(): void
+    public function testNonReversibleCharacters(): void
     {
         self::assertWordMatches('c11ba22', 'a11bc22');
         self::assertWordMatches('droW!', 'Word!');
     }
 
-    public function test_emptiness(): void
+    public function testEmptiness(): void
     {
         self::assertWordMatches('', '');
         self::assertWordMatches(' ', ' ');
     }
 
-    public function test_spaces(): void
+    public function testSpaces(): void
     {
         // Spaces in Word should behave like regular non-reversible characters (?)
         self::assertWordMatches('ab cd ef', 'fe dc ba');

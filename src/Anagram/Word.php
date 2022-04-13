@@ -33,8 +33,7 @@ class Word
         foreach ($this->chars as $i => $char) {
             if (self::isReversible($char)) {
                 array_push($cleanChars, $char);
-            }
-            else {
+            } else {
                 $dirtyChars[$i] = $char;
             }
         }
@@ -43,8 +42,7 @@ class Word
         for ($i = 0; $i < $this->length; $i++) {
             if (!isset($dirtyChars[$i])) {
                 $result .= array_pop($cleanChars);
-            }
-            else {
+            } else {
                 $result .= $dirtyChars[$i];
             }
         }
@@ -55,9 +53,9 @@ class Word
     /**
      * Some characters must stay in same place when we are making anagram. This metod
      *   checks is character one of theese.
-     * 
+     *
      * @param string $char  Character that you need to check.
-     * 
+     *
      * @return bool  True if character should change position, false if not.
      */
     private static function isReversible(string $char): bool

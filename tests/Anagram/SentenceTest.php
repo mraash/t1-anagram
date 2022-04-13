@@ -9,24 +9,24 @@ use PHPUnit\Framework\TestCase;
 
 class SentenceTest extends TestCase
 {
-    public function test_emptiness(): void
+    public function testEmptiness(): void
     {
         $this->assertSentenceMatches('', '');
         $this->assertSentenceMatches(' ', ' ');
     }
 
-    public function test_multiple_words(): void
+    public function testMultipleWords(): void
     {
         self::assertSentenceMatches('word1 word2 word3', 'drow1 drow2 drow3');
     }
 
-    public function test_multiple_spaces(): void
+    public function testMultipleSpaces(): void
     {
         self::assertSentenceMatches('word1  word2', 'drow1  drow2');
         self::assertSentenceMatches('word1   word2  word3', 'drow1   drow2  drow3');
     }
 
-    public function test_spaces_around(): void
+    public function testSpacesAround(): void
     {
         self::assertSentenceMatches(' word1 word2', ' drow1 drow2');
         self::assertSentenceMatches('word1 word2 ', 'drow1 drow2 ');
