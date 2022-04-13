@@ -1,9 +1,21 @@
-version: '3.1'
+version: '3'
 
 services:
-  php:
-    image: php:8.0-apache
-    ports:
-      - 80:80
+
+  nginx:
+    image: nginx:latest
+    depends_on:
+      - app
     volumes:
       - ./:/var/www/html/
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+    ports:
+      - 8081:80
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+    volumes:
+      - ./:/var/www/html/
+      - ./docker/app/php.ini/:/usr/local/etc/php/conf.d/php.ini
