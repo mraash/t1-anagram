@@ -2,6 +2,7 @@
 <ruleset>
     <file>src/</file>
     <file>tests/</file>
+    <file>public/</file>
 
     <arg name="report" value="summary"/>
     <arg name="colors"/>
