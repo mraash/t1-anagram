@@ -4,7 +4,7 @@
 require __DIR__ . '/vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-use Src\Command\AnagramCommand;
+use App\Command\AnagramCommand;
 
 
 $application = new Application();

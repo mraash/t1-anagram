@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Anagram;
+namespace App\Anagram;
 
 /**
  * Class for string with many anagrams.

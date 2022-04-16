@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Anagram;
 
-use Src\Anagram\Sentence;
+use App\Anagram\Sentence;
 use PHPUnit\Framework\TestCase;
 
 class SentenceTest extends TestCase

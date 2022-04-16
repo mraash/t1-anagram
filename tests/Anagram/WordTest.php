@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Anagram;
 
-use Src\Anagram\Word;
+use App\Anagram\Word;
 use PHPUnit\Framework\TestCase;
 
 class WordTest extends TestCase

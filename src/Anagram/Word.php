@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Anagram;
+namespace App\Anagram;
 
 /**
  * Helper class for Sentence. It's responsible for one word in whole string.

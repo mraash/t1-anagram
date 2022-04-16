@@ -1,11 +1,11 @@
 <?php
 
-namespace Src\Command;
+namespace App\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Src\Anagram\Sentence;
+use App\Anagram\Sentence;
 use Symfony\Component\Console\Input\InputOption;
 
 class AnagramCommand extends Command
