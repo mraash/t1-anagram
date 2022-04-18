@@ -6,7 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use App\Anagram\Sentence;
+use App\Anagram\SentenceFabric;
 use App\Command\File\File;
 
 class AnagramCommand extends Command
@@ -14,7 +14,15 @@ class AnagramCommand extends Command
     private const OPTION_STRING = 'string';
     private const OPTION_FILE   = 'file';
 
+    private SentenceFabric $sentenceFabric;
+
     protected static $defaultName = 'app:anagram';
+
+    public function __construct(SentenceFabric $sentenceFabric = null)
+    {
+        parent::__construct();
+        $this->sentenceFabric = $sentenceFabric ?? new SentenceFabric();
+    }
 
     protected function configure(): void
     {
@@ -36,7 +44,7 @@ class AnagramCommand extends Command
 
         $string = isset($givenFile) ? self::getFileContent($fileValue) : $stringValue;
 
-        $anagram = (new Sentence($string))->getReversed();
+        $anagram = $this->sentenceFabric->create($string)->getReversed();
 
         $output->writeln($anagram);
 
