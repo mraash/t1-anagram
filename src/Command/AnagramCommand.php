@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use App\Anagram\SentenceCreator;
-use App\Command\File\File;
+use App\Command\File\FileCreator;
 
 class AnagramCommand extends Command
 {
@@ -15,13 +15,15 @@ class AnagramCommand extends Command
     private const OPTION_FILE   = 'file';
 
     private SentenceCreator $sentenceCreator;
+    private FileCreator $fileCreator;
 
     protected static $defaultName = 'app:anagram';
 
-    public function __construct(SentenceCreator $sentenceCreator = null)
+    public function __construct(SentenceCreator $sentenceCreator = null, FileCreator $fileCreator = null)
     {
         parent::__construct();
         $this->sentenceCreator = $sentenceCreator ?? new SentenceCreator();
+        $this->fileCreator     = $fileCreator ?? new FileCreator();
     }
 
     protected function configure(): void
@@ -42,7 +44,7 @@ class AnagramCommand extends Command
         $stringValue = strval($givenString);
         $fileValue   = strval($givenFile);
 
-        $string = isset($givenFile) ? self::getFileContent($fileValue) : $stringValue;
+        $string = isset($givenFile) ? $this->getFileContent($fileValue) : $stringValue;
 
         $anagram = $this->sentenceCreator->create($string)->getReversed();
 
@@ -51,8 +53,8 @@ class AnagramCommand extends Command
         return Command::SUCCESS;
     }
 
-    private static function getFileContent(string $filename): string
+    private function getFileContent(string $filename): string
     {
-        return (new File($filename))->getContent();
+        return $this->fileCreator->create($filename)->getContent();
     }
 }
