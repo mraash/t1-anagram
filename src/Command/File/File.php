@@ -6,7 +6,7 @@ namespace App\Command\File;
 
 class File
 {
-    private string $filename;
+    protected string $filename;
 
     public function __construct(string $filename)
     {
@@ -23,12 +23,12 @@ class File
         return file_get_contents($this->filename);
     }
 
-    public function exists(): bool
+    protected function exists(): bool
     {
         return file_exists($this->filename);
     }
 
-    private function throwExceptionIfNotExists(): void
+    protected function throwExceptionIfNotExists(): void
     {
         if (!$this->exists()) {
             throw new \Exception("File \"{$this->filename}\" doesn't exist");

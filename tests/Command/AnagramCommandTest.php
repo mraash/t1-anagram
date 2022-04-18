@@ -8,6 +8,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use PHPUnit\Framework\TestCase;
 use Tests\Anagram\SentenceCreatorStub;
+use Tests\Command\File\FileCreatorStub;
 
 class AnagramCommandTest extends TestCase
 {
@@ -16,7 +17,10 @@ class AnagramCommandTest extends TestCase
     public function setUp(): void
     {
         $consoleApp = new Application();
-        $consoleApp->add(new AnagramCommand(new SentenceCreatorStub()));
+        $consoleApp->add(new AnagramCommand(
+            new SentenceCreatorStub(),
+            new FileCreatorStub()
+        ));
 
         $command = $consoleApp->find('app:anagram');
 
@@ -28,27 +32,35 @@ class AnagramCommandTest extends TestCase
         unset($this->commandTester);
     }
 
-    public function testExecuteWithStringOption(): void
+    public function testExecutionWithStringOption(): void
     {
         $this->commandTester->execute(['--string' => 'abc']);
-
-        $display = $this->commandTester->getDisplay(true);
-        $output  = self::standardizeLineBreak($display);
+        $output = $this->commandTester->getDisplay(true);
 
         $this->assertSame("abc\n", $output);
     }
 
-    public function testExecuteWithNoOptions(): void
+    public function testExecutionWithFileOptionEqualToExistingFile(): void
     {
-        $this->commandTester->execute([]);
-        $this->assertSame('', $this->commandTester->getDisplay());
+        $this->commandTester->execute(['--file' => 'myfile.txt']);
+        $output = $this->commandTester->getDisplay(true);
+
+        $this->assertSame("string from file\n", $output);
     }
 
-    /**
-     * Replaces all \r\n and \r with \n in the given string
-     */
-    private static function standardizeLineBreak(string $string): string
+    public function testExecutionWithFileOptionEqualToNonExistingFile(): void
     {
-        return preg_replace('/(\r\n|\r)/', "\n", $string);
+        $this->commandTester->execute(['--file' => 'aaapchi.chi']);
+        $output = $this->commandTester->getDisplay(true);
+
+        $this->assertSame("File \"aaapchi.chi\" doesn't exist\n", $output);
+    }
+
+    public function testExecutionWithNoOptions(): void
+    {
+        $this->commandTester->execute([]);
+        $output = $this->commandTester->getDisplay();
+
+        $this->assertEmpty($output);
     }
 }
