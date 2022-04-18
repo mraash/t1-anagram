@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Anagram;
 
-class SentenceFabric
+class SentenceCreator
 {
     public function create(string $input): Sentence
     {
