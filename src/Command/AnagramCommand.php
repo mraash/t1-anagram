@@ -45,7 +45,16 @@ class AnagramCommand extends Command
         $stringValue = strval($givenString);
         $fileValue   = strval($givenFile);
 
-        $string = isset($givenFile) ? $this->getFileContent($fileValue) : $stringValue;
+        if (isset($givenFile)) {
+            try {
+                $string = $this->getFileContent($fileValue);
+            } catch (\Exception $err) {
+                $output->writeln("<error>{$err->getMessage()}</error>");
+                return Command::FAILURE;
+            }
+        } else {
+            $string = $stringValue;
+        }
 
         $anagram = $this->sentenceCreator->create($string)->getReversed();
 
