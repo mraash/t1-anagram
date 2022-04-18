@@ -17,19 +17,20 @@ class AnagramCommand extends Command
     private SentenceCreator $sentenceCreator;
     private FileCreator $fileCreator;
 
-    protected static $defaultName = 'app:anagram';
-
     public function __construct(SentenceCreator $sentenceCreator = null, FileCreator $fileCreator = null)
     {
         parent::__construct();
+
         $this->sentenceCreator = $sentenceCreator ?? new SentenceCreator();
         $this->fileCreator     = $fileCreator ?? new FileCreator();
     }
 
     protected function configure(): void
     {
-        $this->addOption(self::OPTION_STRING, null, InputOption::VALUE_REQUIRED);
-        $this->addOption(self::OPTION_FILE, null, InputOption::VALUE_REQUIRED);
+        $this
+            ->setName('app:anagram')
+            ->addOption(self::OPTION_STRING, null, InputOption::VALUE_REQUIRED)
+            ->addOption(self::OPTION_FILE, null, InputOption::VALUE_REQUIRED);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
