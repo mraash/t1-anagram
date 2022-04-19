@@ -21,8 +21,13 @@ class File
     {
         $this->throwExceptionIfNotExists();
 
-        /* @phpstan-ignore-next-line */
-        return file_get_contents($this->filename);
+        $content = file_get_contents($this->filename);
+
+        if ($content === false) {
+            throw new NonExistingFileException($this->filename);
+        }
+
+        return $content;
     }
 
     protected function exists(): bool
