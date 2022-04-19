@@ -8,6 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use App\Anagram\SentenceCreator;
 use App\Command\File\FileCreator;
+use App\Exception\NonExistingFileException;
 
 class AnagramCommand extends Command
 {
@@ -48,7 +49,7 @@ class AnagramCommand extends Command
         if (isset($givenFile)) {
             try {
                 $string = $this->getFileContent($fileValue);
-            } catch (\Exception $err) {
+            } catch (NonExistingFileException $err) {
                 $output->writeln("<error>{$err->getMessage()}</error>");
                 return Command::FAILURE;
             }

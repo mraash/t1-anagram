@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Command\File;
 
+use App\Exception\NonExistingFileException;
+
 class File
 {
     protected string $filename;
@@ -31,7 +33,7 @@ class File
     protected function throwExceptionIfNotExists(): void
     {
         if (!$this->exists()) {
-            throw new \Exception("File \"{$this->filename}\" doesn't exist");
+            throw new NonExistingFileException($this->filename);
         }
     }
 }
