@@ -7,6 +7,7 @@ namespace App\Command;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use PHPUnit\Framework\TestCase;
+use App\Exception\NonExistingFileException;
 use Tests\Anagram\SentenceCreatorStub;
 use Tests\Command\File\FileCreatorStub;
 
@@ -50,10 +51,13 @@ class AnagramCommandTest extends TestCase
 
     public function testExecutionWithFileOptionEqualToNonExistingFile(): void
     {
-        $this->commandTester->execute(['--file' => 'aaapchi.chi']);
+        $result = $this->commandTester->execute(['--file' => 'aaapchi.chi']);
         $output = $this->commandTester->getDisplay(true);
 
-        $this->assertSame("File \"aaapchi.chi\" doesn't exist\n", $output);
+        $message = (new NonExistingFileException('aaapchi.chi'))->getMessage();
+
+        $this->assertSame($result, AnagramCommand::FAILURE);
+        $this->assertSame("{$message}\n", $output);
     }
 
     public function testExecutionWithNoOptions(): void
