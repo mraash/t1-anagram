@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Command;
 
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 use PHPUnit\Framework\TestCase;
 use App\Command\AnagramCommand;
@@ -57,15 +58,16 @@ class AnagramCommandTest extends TestCase
 
         $message = (new NonExistingFileException('aaapchi.chi'))->getMessage();
 
-        $this->assertSame($result, AnagramCommand::FAILURE);
+        $this->assertSame(Command::FAILURE, $result);
         $this->assertSame("{$message}\n", $output);
     }
 
     public function testExecutionWithNoOptions(): void
     {
-        $this->commandTester->execute([]);
+        $result = $this->commandTester->execute([]);
         $output = $this->commandTester->getDisplay();
 
-        $this->assertEmpty($output);
+        $this->assertSame(Command::INVALID, $result);
+        $this->assertNotEmpty($output);
     }
 }

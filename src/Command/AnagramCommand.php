@@ -42,7 +42,8 @@ class AnagramCommand extends Command
         $givenFile   = $input->getOption(self::OPTION_FILE);
 
         if ($givenString === null && $givenFile === null) {
-            return Command::SUCCESS;
+            $output->writeln('<error>Please add --file or --string option</error>');
+            return Command::INVALID;
         }
 
         $stringValue = strval($givenString);
