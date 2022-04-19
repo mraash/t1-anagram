@@ -8,8 +8,8 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use App\Anagram\SentenceCreator;
-use App\Command\File\FileCreator;
+use App\Anagram\SentenceFactory;
+use App\Command\File\FileFactory;
 use App\Exception\NonExistingFileException;
 
 class AnagramCommand extends Command
@@ -17,15 +17,15 @@ class AnagramCommand extends Command
     private const OPTION_STRING = 'string';
     private const OPTION_FILE   = 'file';
 
-    private SentenceCreator $sentenceCreator;
-    private FileCreator $fileCreator;
+    private SentenceFactory $sentenceFactory;
+    private FileFactory $fileFactory;
 
-    public function __construct(SentenceCreator $sentenceCreator = null, FileCreator $fileCreator = null)
+    public function __construct(SentenceFactory $sentenceFactory = null, FileFactory $fileFactory = null)
     {
         parent::__construct();
 
-        $this->sentenceCreator = $sentenceCreator ?? new SentenceCreator();
-        $this->fileCreator     = $fileCreator ?? new FileCreator();
+        $this->sentenceFactory = $sentenceFactory ?? new SentenceFactory();
+        $this->fileFactory     = $fileFactory ?? new FileFactory();
     }
 
     protected function configure(): void
@@ -60,7 +60,7 @@ class AnagramCommand extends Command
             $string = $stringValue;
         }
 
-        $anagram = $this->sentenceCreator->create($string)->getReversed();
+        $anagram = $this->sentenceFactory->create($string)->getReversed();
 
         $output->writeln($anagram);
 
@@ -69,6 +69,6 @@ class AnagramCommand extends Command
 
     private function getFileContent(string $filename): string
     {
-        return $this->fileCreator->create($filename)->getContent();
+        return $this->fileFactory->create($filename)->getContent();
     }
 }

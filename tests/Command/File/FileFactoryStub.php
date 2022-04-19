@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Command\File;
 
-use App\Command\File\FileCreator;
+use App\Command\File\FileFactory;
 
-class FileCreatorStub extends FileCreator
+class FileFactoryStub extends FileFactory
 {
     public function create(string $filename): FileMock
     {

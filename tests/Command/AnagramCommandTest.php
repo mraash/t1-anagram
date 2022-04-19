@@ -10,8 +10,8 @@ use Symfony\Component\Console\Tester\CommandTester;
 use PHPUnit\Framework\TestCase;
 use App\Command\AnagramCommand;
 use App\Exception\NonExistingFileException;
-use Tests\Anagram\SentenceCreatorStub;
-use Tests\Command\File\FileCreatorStub;
+use Tests\Anagram\SentenceFactoryStub;
+use Tests\Command\File\FileFactoryStub;
 
 class AnagramCommandTest extends TestCase
 {
@@ -21,8 +21,8 @@ class AnagramCommandTest extends TestCase
     {
         $consoleApp = new Application();
         $consoleApp->add(new AnagramCommand(
-            new SentenceCreatorStub(),
-            new FileCreatorStub()
+            new SentenceFactoryStub(),
+            new FileFactoryStub()
         ));
 
         $command = $consoleApp->find('app:anagram');

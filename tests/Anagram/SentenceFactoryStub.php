@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Anagram;
 
-use App\Anagram\SentenceCreator;
+use App\Anagram\SentenceFactory;
 
-class SentenceCreatorStub extends SentenceCreator
+class SentenceFactoryStub extends SentenceFactory
 {
     public function create(string $input): SentenceStub
     {
