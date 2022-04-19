@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Command;
+namespace Tests\Command;
 
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use PHPUnit\Framework\TestCase;
+use App\Command\AnagramCommand;
 use App\Exception\NonExistingFileException;
 use Tests\Anagram\SentenceCreatorStub;
 use Tests\Command\File\FileCreatorStub;
